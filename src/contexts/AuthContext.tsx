@@ -1,11 +1,11 @@
-import { AuthError, User } from '@supabase/supabase-js';
+import { AuthError, Session, User } from '@supabase/supabase-js';
 import { useContext, useEffect, useState } from 'react';
 import { supabase } from '../utils/supabase/supabase';
 import React from 'react';
 
 type AuthContextType = {
   signOut: () => Promise<{ error: AuthError | null }>;
-  user: User | undefined;
+  user: User | null;
   loading: boolean;
 };
 
@@ -16,14 +16,15 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | undefined>();
+  const [user, setUser] = useState<User | null>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function checkUser() {
       // Check active sessions and sets the user
-      const session = await supabase.auth.getSession();
-      const user: User | undefined = session.data.session?.user;
+      const data = await supabase.auth.getSession();
+      const session: Session | null = data.data.session;
+      const user: User | null = session?.user ?? null;
       setUser(user);
       setLoading(false);
 
@@ -40,10 +41,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     checkUser();
   }, []);
 
+  const userThatIsNullOrDefined: User | null = user == undefined ? null : user;
+
   // Will be passed down to Signup, Login and Dashboard components
   const value: AuthContextType = {
     signOut: () => supabase.auth.signOut(),
-    user,
+    user: userThatIsNullOrDefined,
     loading
   };
 

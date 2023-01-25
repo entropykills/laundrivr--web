@@ -3,6 +3,6 @@ import { useAuth } from '../../contexts/AuthContext';
 
 export function ProtectedRoute() {
   const { user } = useAuth();
-  if (user === undefined) return <Navigate to="/signin" />;
+  if (user == null) return <Navigate to="/signin" />;
   return <Outlet />;
 }
