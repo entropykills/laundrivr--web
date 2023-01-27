@@ -8,10 +8,14 @@ const generateKey = () => {
 };
 
 export const DashboardPage = () => {
-  const navigate = useNavigate();
+  const _navigate = useNavigate();
   const { isAdmin } = useAuth();
 
   const { isOpen: isSidebarOpen, onOpen: onSidebarOpen, onClose: onSidebarClose } = useDisclosure();
+  const navigate = (path: string) => {
+    _navigate(path);
+    onSidebarClose();
+  };
 
   const navigationContent = [
     <Button
