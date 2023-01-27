@@ -51,14 +51,14 @@ export const NavigationBar = () => {
       <Text key={1}>{auth.user?.user_metadata['name'] ?? auth.user?.email ?? ''}</Text>
     ],
     signedOut: [
-      <Button key={0} fontWeight={'bold'} onClick={() => navigate('/signin')}>
+      <Button key={0} fontWeight={'bold'} onClick={() => navigate('/')}>
         Sign In
       </Button>
     ]
   };
 
   return (
-    <Box as="section" pb={{ base: '5' }}>
+    <Box as="section" backgroundColor={'white'}>
       <NavigationDrawer
         signedIn={signedIn}
         isOpen={isOpen}
@@ -70,7 +70,9 @@ export const NavigationBar = () => {
       <Box as="nav" bg="bg-surface" boxShadow={useColorModeValue('sm', 'sm-dark')}>
         <Flex p={{ base: '4', lg: '5' }} justify="space-between">
           <HStack spacing="4">
-            <Text fontWeight={'bold'}>Laundrivr</Text>
+            <Button fontWeight={'bold'} variant="primary" onClick={() => navigate('/')}>
+              Laundrivr
+            </Button>
           </HStack>
           {isDesktop ? (
             <HStack spacing="4">
