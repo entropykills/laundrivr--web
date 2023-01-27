@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, VisuallyHidden, useBreakpointValue } from '@chakra-ui/react';
+import { Button, ButtonGroup, VisuallyHidden } from '@chakra-ui/react';
 import { AiFillApple, AiOutlineGoogle } from 'react-icons/ai';
 import { supabase } from '../../utils/supabase/supabase';
 
